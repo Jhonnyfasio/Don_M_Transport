@@ -2,7 +2,7 @@
 
 //namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
-//use App\Http\Controllers\EmployeesController as EmpController;
+//use App\Http\Controllers\EmployeesController;
 
 //use App\EmployeesController;
 

@@ -38,8 +38,27 @@ class EmployeesController extends Controller
     public function store(Request $request)
     {
       // Recibe datos
+      //dd($request->all());
+      //dd($request->input('name'));
+      //dd($request->name);
+
       // Valida
+      $request->validate([
+      'name'=>['required','string','max:255'],
+      'firstname'=>['required','string','max:255'],
+      'lastname'=>['required','string','max:255'],
+      //'worker_code'=>is_numeric,
+      'email' => 'email:rfc,dns'
+      ]);
+
       // Guarda
+      $employee = new Employee();
+      $employee->name = $request->name;
+      $employee->firstname = $request->firstname;
+      $employee->lastname = $request->lastname;
+      $employee->worker_code = $request->worker_code;
+      $employee->email = $request->email;
+      $employee->save();
       // Redirecciona
       return redirect('/employees');
     }
