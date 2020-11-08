@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Empleados</title>
-  </head>
-  <body>
+@extends('layouts.app')
+
+@section('content')
+
     <h1>Listado de Empleados</h1>
     <a href="/employees/create">Registrar nuevo empleado</a>
 
@@ -15,10 +12,13 @@
       </tr>
       @foreach ($employees as $employee)
         <tr>
-          <td>{{$employee->id}}</td>
+          <td>{{$employee->worker_code}}</td>
           <td><a href="/employees/{{$employee->id}}">{{$employee->name}}</td>
+          <td>{{$employee->firstname}}</td>
+          <td>{{$employee->lastname}}</td>
+          <td>{{$employee->email}}</td>
         </tr>
       @endforeach
     </table>
-  </body>
-</html>
+
+@endsection

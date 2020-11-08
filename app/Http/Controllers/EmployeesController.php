@@ -47,11 +47,12 @@ class EmployeesController extends Controller
       'name'=>['required','string','max:255'],
       'firstname'=>['required','string','max:255'],
       'lastname'=>['required','string','max:255'],
-      //'worker_code'=>is_numeric,
-      'email' => 'email:rfc,dns'
+      'worker_code'=>['required'],
+      'email' => ['required', 'email:rfc,dns']
       ]);
 
       // Guarda
+      /*
       $employee = new Employee();
       $employee->name = $request->name;
       $employee->firstname = $request->firstname;
@@ -59,6 +60,10 @@ class EmployeesController extends Controller
       $employee->worker_code = $request->worker_code;
       $employee->email = $request->email;
       $employee->save();
+      */
+      $request->merge(['email' => $request->email ?? '']); // Permite recibir un valor null.
+      Employee::create($request->all());
+
       // Redirecciona
       return redirect('/employees');
     }
@@ -87,7 +92,7 @@ class EmployeesController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view('/employees/employeeForm', compact('employee'));
     }
 
     /**
@@ -99,7 +104,17 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+      //dd($request->all(), $request->except('_token','_method'));
+      /*
+      $employee->name = $request->name;
+      $employee->firstname = $request->firstname;
+      $employee->lastname = $request->lastname;
+      $employee->worker_code = $request->worker_code;
+      $employee->email = $request->email;
+      $employee->save();
+      */
+      Employee::where('id',$employee->id)->update($request->except('_token','_method'));
+      return redirect()->route('employees.show', [$employee]);
     }
 
     /**
@@ -110,6 +125,7 @@ class EmployeesController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect()->route('employees.index');
     }
 }

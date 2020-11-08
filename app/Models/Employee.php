@@ -9,4 +9,7 @@ class Employee extends Model
 {
   //use UserFactoryH;
   protected $table = 'Employees';
+  protected $fillable = [
+    'name','firstname','lastname','worker_code','email',
+  ];
 }
